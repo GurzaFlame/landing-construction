@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЛейдингСтрой — Редактор конфигурации</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #121316; color: #E8EAED; min-height: 100vh; }
+    .header { background: #1A1B1E; border-bottom: 1px solid #2A2B2E; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .header h1 { font-size: 18px; color: #F97316; }
+    .header-actions { display: flex; gap: 10px; }
+    .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: all 0.2s; }
+    .btn-primary { background: #F97316; color: #fff; }
+    .btn-primary:hover { background: #EA580C; }
+    .btn-secondary { background: #1A1B1E; color: #E8EAED; border: 1px solid #2A2B2E; }
+    .btn-secondary:hover { background: #2A2B2E; }
+    .btn-danger { background: #EF4444; color: #fff; }
+    .container { display: flex; height: calc(100vh - 60px); }
+    .sidebar { width: 220px; background: #1A1B1E; border-right: 1px solid #2A2B2E; padding: 16px 0; flex-shrink: 0; }
+    .sidebar button { width: 100%; padding: 12px 20px; background: none; border: none; color: #888; text-align: left; cursor: pointer; font-size: 14px; transition: all 0.2s; }
+    .sidebar button:hover { background: #2A2B2E; color: #E8EAED; }
+    .sidebar button.active { background: #2A2B2E; color: #F97316; border-left: 3px solid #F97316; }
+    .main { flex: 1; overflow-y: auto; padding: 24px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .section { background: #1A1B1E; border: 1px solid #2A2B2E; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+    .section h2 { font-size: 16px; color: #F97316; margin-bottom: 16px; }
+    .section h3 { font-size: 14px; color: #888; margin: 16px 0 10px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; color: #888; margin-bottom: 6px; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; background: #121316; border: 1px solid #2A2B2E; border-radius: 8px; color: #E8EAED; font-size: 14px; }
+    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #F97316; }
+    .form-group textarea { min-height: 80px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .stat-row { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; align-items: end; margin-bottom: 10px; }
+    .plan-card { background: #121316; border: 1px solid #2A2B2E; border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+    .plan-card .plan-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 10px; }
+    .plan-card .plan-header input { flex: 1; font-size: 16px; font-weight: 600; }
+    .list-item { background: #121316; border: 1px solid #2A2B2E; border-radius: 8px; padding: 12px; margin-bottom: 10px; display: flex; gap: 10px; align-items: start; }
+    .list-item input { flex: 1; }
+    .list-item .btn-remove { background: #EF4444; color: #fff; border: none; border-radius: 6px; padding: 6px 10px; cursor: pointer; flex-shrink: 0; }
+    .btn-add { background: #1A1B1E; color: #F97316; border: 1px dashed #2A2B2E; border-radius: 8px; padding: 10px; width: 100%; cursor: pointer; font-size: 14px; margin-top: 10px; }
+    .btn-add:hover { border-color: #F97316; }
+    .checkbox-group { display: flex; align-items: center; gap: 8px; }
+    .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: #F97316; }
+    .preview { background: #121316; border: 1px solid #2A2B2E; border-radius: 12px; padding: 16px; margin-top: 16px; max-height: 400px; overflow-y: auto; }
+    .preview pre { font-family: 'Fira Code', monospace; font-size: 12px; color: #888; white-space: pre-wrap; word-break: break-all; }
+    @media (max-width: 768px) {
+      .container { flex-direction: column; }
+      .sidebar { width: 100%; display: flex; overflow-x: auto; padding: 0; }
+      .sidebar button { white-space: nowrap; border-left: none !important; border-bottom: 3px solid transparent; }
+      .sidebar button.active { border-bottom-color: #F97316; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>ЛейдингСтрой — Редактор</h1>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="copyConfig()">Копировать</button>
+      <button class="btn btn-primary" onclick="downloadConfig()">Скачать config.js</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <button class="active" onclick="showTab('company')">Компания</button>
+      <button onclick="showTab('contact')">Контакты</button>
+      <button onclick="showTab('hero')">Hero</button>
+      <button onclick="showTab('pricing')">Услуги</button>
+      <button onclick="showTab('portfolio')">Портфолио</button>
+      <button onclick="showTab('faq')">FAQ</button>
+      <button onclick="showTab('payment')">Оплата</button>
+      <button onclick="showTab('preview')">Просмотр</button>
+    </div>
+
+    <div class="main">
+      <div class="tab-content active" id="tab-company">
+        <div class="section">
+          <h2>Компания</h2>
+          <div class="form-group"><label>Название</label><input type="text" id="company-name" value="ЛейдингСтрой" oninput="generatePreview()"></div>
+          <div class="form-group"><label>Слоган</label><input type="text" id="company-slogan" value="Строим ваш дом мечты" oninput="generatePreview()"></div>
+          <div class="form-group"><label>Описание</label><textarea id="company-description" oninput="generatePreview()">Строительная компания в Екатеринбурге</textarea></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-contact">
+        <div class="section">
+          <h2>Контакты</h2>
+          <div class="form-row">
+            <div class="form-group"><label>Телефон (отображение)</label><input type="text" id="contact-phone" value="+7 (343) 333-44-55" oninput="generatePreview()"></div>
+            <div class="form-group"><label>Телефон (ссылка)</label><input type="text" id="contact-phoneLink" value="+73433334455" oninput="generatePreview()"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="email" id="contact-email" value="info@leydingstroy.ru" oninput="generatePreview()"></div>
+            <div class="form-group"><label>WhatsApp</label><input type="text" id="contact-whatsapp" value="73433334455" oninput="generatePreview()"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Telegram</label><input type="text" id="contact-telegram" value="leydingstroy_bot" oninput="generatePreview()"></div>
+            <div class="form-group"><label>Адрес</label><input type="text" id="contact-address" value="Екатеринбург" oninput="generatePreview()"></div>
+          </div>
+          <div class="form-group"><label>Часы работы</label><input type="text" id="contact-workHours" value="Пн-Пт: 9:00-18:00" oninput="generatePreview()"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-hero">
+        <div class="section">
+          <h2>Hero-секция</h2>
+          <div class="form-group"><label>Заголовок</label><input type="text" id="hero-headline" value="Архитектура, которая переживет века" oninput="generatePreview()"></div>
+          <div class="form-group"><label>Подзаголовок</label><input type="text" id="hero-subtitle" value="Строительство домов под ключ" oninput="generatePreview()"></div>
+          <div class="form-group"><label>Текст кнопки</label><input type="text" id="hero-ctaText" value="Рассчитать стоимость" oninput="generatePreview()"></div>
+          <h3>Статистика</h3>
+          <div id="stats-container">
+            <div class="stat-row"><div class="form-group"><label>Значение</label><input type="text" class="stat-value" value="15+" oninput="generatePreview()"></div><div class="form-group"><label>Подпись</label><input type="text" class="stat-label" value="лет опыта" oninput="generatePreview()"></div></div>
+            <div class="stat-row"><div class="form-group"><label>Значение</label><input type="text" class="stat-value" value="200+" oninput="generatePreview()"></div><div class="form-group"><label>Подпись</label><input type="text" class="stat-label" value="объектов" oninput="generatePreview()"></div></div>
+            <div class="stat-row"><div class="form-group"><label>Значение</label><input type="text" class="stat-value" value="98%" oninput="generatePreview()"></div><div class="form-group"><label>Подпись</label><input type="text" class="stat-label" value="довольных" oninput="generatePreview()"></div></div>
+            <div class="stat-row"><div class="form-group"><label>Значение</label><input type="text" class="stat-value" value="50 лет" oninput="generatePreview()"></div><div class="form-group"><label>Подпись</label><input type="text" class="stat-label" value="гарантия" oninput="generatePreview()"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-pricing">
+        <div id="services-container"></div>
+        <button class="btn-add" onclick="addService()">+ Добавить услугу</button>
+      </div>
+
+      <div class="tab-content" id="tab-portfolio">
+        <div id="portfolio-container"></div>
+        <button class="btn-add" onclick="addPortfolio()">+ Добавить объект</button>
+      </div>
+
+      <div class="tab-content" id="tab-faq">
+        <div id="faq-container"></div>
+        <button class="btn-add" onclick="addFaq()">+ Добавить вопрос</button>
+      </div>
+
+      <div class="tab-content" id="tab-payment">
+        <div class="section">
+          <h2>Способы оплаты</h2>
+          <div class="form-group"><label>Способы оплаты (через запятую)</label><input type="text" id="payment-methods" value="Карты, Безнал, Рассрочка" oninput="generatePreview()"></div>
+          <div class="form-group"><label>Дедлайн (дней для таймера)</label><input type="number" id="payment-deadline" value="0" min="0" oninput="generatePreview()"></div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-preview">
+        <div class="section">
+          <h2>Предпросмотр config.js</h2>
+          <div class="preview"><pre id="preview-output"></pre></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const defaultServices = [
+      { name: "Ремонт квартир", price: "от 5 000 ₽/м²", description: "Косметический и капитальный ремонт" },
+      { name: "Строительство домов", price: "от 3 000 000 ₽", description: "Дома под ключ от фундамента до отделки" },
+      { name: "Дизайн-проект", price: "от 150 000 ₽", description: "3D-визуализация и рабочая документация" },
+      { name: "Инженерные сети", price: "от 200 000 ₽", description: "Водоснабжение, отопление, электрика" }
+    ];
+
+    const defaultPortfolio = [
+      { title: "Коттедж в Шарташе", area: "180 м²", term: "4 мес" },
+      { title: "Дом в Барнауле", area: "250 м²", term: "6 мес" },
+      { title: "Таунхаус в Верхней Пышме", area: "120 м²", term: "3 мес" }
+    ];
+
+    const defaultFaq = [
+      { question: "Сколько стоит дом под ключ?", answer: "От 3 000 000 ₽ в зависимости от площади и материалов." },
+      { question: "Какие гарантии?", answer: "50 лет на конструктив, 5 лет на отделку." },
+      { question: "Сколько длится строительство?", answer: "От 3 до 12 месяцев в зависимости от проекта." },
+      { question: "Есть ли рассрочка?", answer: "Да, беспроцентная рассрочка до 24 месяцев." }
+    ];
+
+    let services = JSON.parse(JSON.stringify(defaultServices));
+    let portfolio = JSON.parse(JSON.stringify(defaultPortfolio));
+    let faqItems = JSON.parse(JSON.stringify(defaultFaq));
+
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      event.target.classList.add('active');
+      if (id === 'preview') generatePreview();
+    }
+
+    function renderServices() {
+      document.getElementById('services-container').innerHTML = services.map((s, i) => `
+        <div class="plan-card">
+          <div class="plan-header">
+            <input type="text" value="${esc(s.name)}" onchange="services[${i}].name=this.value;generatePreview()" placeholder="Название услуги" style="font-size:16px;font-weight:600;">
+            <button class="btn btn-danger" style="padding:6px 12px;font-size:12px;" onclick="removeService(${i})">Удалить</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Цена</label><input type="text" value="${esc(s.price)}" onchange="services[${i}].price=this.value;generatePreview()"></div>
+            <div class="form-group"><label>Описание</label><input type="text" value="${esc(s.description)}" onchange="services[${i}].description=this.value;generatePreview()"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addService() { services.push({ name: "", price: "", description: "" }); renderServices(); generatePreview(); }
+    function removeService(i) { services.splice(i, 1); renderServices(); generatePreview(); }
+
+    function renderPortfolio() {
+      document.getElementById('portfolio-container').innerHTML = portfolio.map((p, i) => `
+        <div class="plan-card">
+          <div class="plan-header">
+            <input type="text" value="${esc(p.title)}" onchange="portfolio[${i}].title=this.value;generatePreview()" placeholder="Название объекта" style="font-size:16px;font-weight:600;">
+            <button class="btn btn-danger" style="padding:6px 12px;font-size:12px;" onclick="removePortfolio(${i})">Удалить</button>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Площадь</label><input type="text" value="${esc(p.area)}" onchange="portfolio[${i}].area=this.value;generatePreview()"></div>
+            <div class="form-group"><label>Срок</label><input type="text" value="${esc(p.term)}" onchange="portfolio[${i}].term=this.value;generatePreview()"></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addPortfolio() { portfolio.push({ title: "", area: "", term: "" }); renderPortfolio(); generatePreview(); }
+    function removePortfolio(i) { portfolio.splice(i, 1); renderPortfolio(); generatePreview(); }
+
+    function renderFaq() {
+      document.getElementById('faq-container').innerHTML = faqItems.map((f, i) => `
+        <div class="list-item" style="flex-direction:column;">
+          <div style="display:flex;gap:10px;width:100%;">
+            <input type="text" value="${esc(f.question)}" onchange="faqItems[${i}].question=this.value;generatePreview()" placeholder="Вопрос" style="flex:1;">
+            <button class="btn-remove" onclick="faqItems.splice(${i},1);renderFaq()">×</button>
+          </div>
+          <textarea onchange="faqItems[${i}].answer=this.value;generatePreview()" placeholder="Ответ" style="width:100%;margin-top:8px;">${esc(f.answer)}</textarea>
+        </div>
+      `).join('');
+    }
+
+    function addFaq() { faqItems.push({ question: "", answer: "" }); renderFaq(); generatePreview(); }
+
+    function esc(s) { return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+    function getConfig() {
+      return {
+        company: { name: document.getElementById('company-name').value, slogan: document.getElementById('company-slogan').value, description: document.getElementById('company-description').value },
+        contact: { phone: document.getElementById('contact-phone').value, phoneLink: document.getElementById('contact-phoneLink').value, email: document.getElementById('contact-email').value, whatsapp: document.getElementById('contact-whatsapp').value, telegram: document.getElementById('contact-telegram').value, address: document.getElementById('contact-address').value, workHours: document.getElementById('contact-workHours').value },
+        hero: { headline: document.getElementById('hero-headline').value, subtitle: document.getElementById('hero-subtitle').value, ctaText: document.getElementById('hero-ctaText').value, stats: Array.from(document.querySelectorAll('#stats-container .stat-row')).map(row => ({ value: row.querySelector('.stat-value').value, label: row.querySelector('.stat-label').value })) },
+        services: services, portfolio: portfolio, faq: faqItems,
+        payment: { methods: document.getElementById('payment-methods').value.split(',').map(s => s.trim()).filter(Boolean), deadline: parseInt(document.getElementById('payment-deadline').value) || 0 }
+      };
+    }
+
+    function jsString(obj, indent) {
+      indent = indent || 0; const pad = '  '.repeat(indent); const pad1 = '  '.repeat(indent + 1);
+      if (Array.isArray(obj)) { if (obj.length === 0) return '[]'; if (typeof obj[0] === 'string') return '[\n' + obj.map(s => pad1 + '"' + s.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"').join(',\n') + '\n' + pad + ']'; return '[\n' + obj.map(item => pad1 + jsString(item, indent + 1)).join(',\n') + '\n' + pad + ']'; }
+      if (typeof obj === 'object' && obj !== null) { const keys = Object.keys(obj); if (keys.length === 0) return '{}'; return '{\n' + keys.map(k => { const v = obj[k]; const val = typeof v === 'string' ? '"' + v.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"' : typeof v === 'number' ? v : typeof v === 'boolean' ? v : jsString(v, indent + 1); return pad1 + k + ': ' + val; }).join(',\n') + '\n' + pad + '}'; }
+      return String(obj);
+    }
+
+    function generateConfigString() {
+      const config = getConfig();
+      return `// ============================================================\n// CONFIG.JS — РЕДАКТОР КОНТЕНТА\n// ============================================================\n\nconst CONFIG = ${jsString(config, 0)};\n`;
+    }
+
+    function generatePreview() { const el = document.getElementById('preview-output'); if (!el) return; el.textContent = generateConfigString(); }
+    function downloadConfig() { const blob = new Blob([generateConfigString()], { type: 'text/javascript' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'config.js'; a.click(); URL.revokeObjectURL(a.href); }
+    function copyConfig() { navigator.clipboard.writeText(generateConfigString()).then(() => { const btn = event.target; const orig = btn.textContent; btn.textContent = 'Скопировано!'; setTimeout(() => btn.textContent = orig, 2000); }); }
+
+    renderServices(); renderPortfolio(); renderFaq(); generatePreview();
+  </script>
+</body>
+</html>

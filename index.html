@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ЛейдингСтрой — Строительство домов</title>
+  <meta name="description" content="Строим ваш дом мечты. Надёжно, качественно, в срок.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ЛейдингСтрой — Строительство домов">
+  <meta property="og:description" content="Строим ваш дом мечты. Надёжно, качественно, в срок.">
+  <meta property="og:type" content="website">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://example.com/landing-construction/">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "ЛейдингСтрой",
+    "description": "Строим ваш дом мечты. Надёжно, качественно, в срок.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Строителей, 42",
+      "addressLocality": "Москва",
+      "addressCountry": "RU"
+    },
+    "telephone": "+7-495-123-45-67",
+    "foundingDate": "2010",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "value": 50
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-icon">&#9632;</span>
+        ЛЕЙДИНГ<span class="accent">СТРОЙ</span>
+      </a>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#process">Процесс</a></li>
+        <li><a href="#portfolio">Портфолио</a></li>
+        <li><a href="#pricing">Цены</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#faq">Вопросы</a></li>
+        <li><a href="#contact" class="nav__cta">Заявка</a></li>
+      </ul>
+      <button class="nav__burger" id="navBurger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__bg"></div>
+    <div class="container hero__content">
+      <div class="hero__badge">Надёжный партнёр с 2010 года</div>
+      <h1 class="hero__title">СТРОИМ ВАШ ДОМ<br><span class="accent">МЕЧТЫ</span></h1>
+      <p class="hero__subtitle">Полный цикл строительных услуг — от проектирования до сдачи ключей. Качество, сроки, прозрачная смета.</p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">Получить консультацию</a>
+        <a href="#portfolio" class="btn btn--outline">Наши проекты</a>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-target="15">0</span><span class="hero__stat-plus">+</span>
+          <span class="hero__stat-label">лет опыта</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-target="200">0</span><span class="hero__stat-plus">+</span>
+          <span class="hero__stat-label">объектов</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-number" data-target="98">0</span><span class="hero__stat-percent">%</span>
+          <span class="hero__stat-label">довольных клиентов</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES — BENTO GRID -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Что мы делаем</span>
+        <h2 class="section-title">НАШИ <span class="accent">УСЛУГИ</span></h2>
+        <p class="section-desc">Комплексные строительные решения для частного и коммерческого строительства</p>
+      </div>
+      <div class="bento">
+        <div class="bento__item bento__item--wide" data-reveal>
+          <div class="bento__icon">&#9881;</div>
+          <h3>Ремонт квартир</h3>
+          <p>Косметический и капитальный ремонт квартир любой сложности. От черновой отделки до дизайнерского ремонта под ключ с гарантией на все работы.</p>
+          <span class="bento__price">от 5 000 ₽/м²</span>
+        </div>
+        <div class="bento__item" data-reveal>
+          <div class="bento__icon">&#9960;</div>
+          <h3>Строительство домов</h3>
+          <p>Индивидуальные проекты частных домов и коттеджей из кирпича, газобетона и SIP-панелей. Строим дома от фундамента до кровли.</p>
+          <span class="bento__price">от 3 000 000 ₽</span>
+        </div>
+        <div class="bento__item" data-reveal>
+          <div class="bento__icon">&#9998;</div>
+          <h3>Дизайн-проект</h3>
+          <p>Профессиональный дизайн интерьера с 3D-визуализацией, чертежами и подбором материалов. Адаптируем под ваш бюджет.</p>
+          <span class="bento__price">от 150 000 ₽</span>
+        </div>
+        <div class="bento__item bento__item--wide" data-reveal>
+          <div class="bento__icon">&#9889;</div>
+          <h3>Инженерные сети</h3>
+          <p>Проектирование и монтаж всех видов инженерных коммуникаций: электрика, водоснабжение, отопление, вентиляция, канализация. Полная автоматизация дома.</p>
+          <span class="bento__price">от 800 ₽/м²</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS — STEPS -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Как мы работаем</span>
+        <h2 class="section-title">ПРОЦЕСС <span class="accent">РАБОТЫ</span></h2>
+        <p class="section-desc">Четыре простых шага от идеи до готового объекта</p>
+      </div>
+      <div class="steps">
+        <div class="step" data-reveal>
+          <div class="step__number">01</div>
+          <div class="step__content">
+            <h3 class="step__title">Замер</h3>
+            <p class="step__desc">Выезд специалиста на объект, замеры, фотофиксация и обсуждение ваших пожеланий. Бесплатно.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step__number">02</div>
+          <div class="step__content">
+            <h3 class="step__title">Проект</h3>
+            <p class="step__desc">Разработка проекта с 3D-визуализацией, чертежами и детальными узлами. Согласование до начала работ.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step__number">03</div>
+          <div class="step__content">
+            <h3 class="step__title">Смета</h3>
+            <p class="step__desc">Детальная смета с фиксированной стоимостью. Без скрытых доплат — вы точно знаете итоговую цену.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal>
+          <div class="step__number">04</div>
+          <div class="step__content">
+            <h3 class="step__title">Строительство</h3>
+            <p class="step__desc">Реализация проекта с еженедельными отчётами, контролем качества и соблюдением сроков.</p>
+          </div>
+        </div>
+      </div>
+      <div class="steps__connector" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Наши работы</span>
+        <h2 class="section-title">ПОРТФОЛИО <span class="accent">ПРОЕКТОВ</span></h2>
+        <p class="section-desc">Реализованные проекты, которыми мы гордимся</p>
+      </div>
+      <div class="portfolio__grid">
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Коттедж</span>
+            <h3>Дом из газобетона</h3>
+            <p>240 м² · 4 комнаты · г. Москва</p>
+          </div>
+        </div>
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Ремонт</span>
+            <h3>Двухкомнатная квартира</h3>
+            <p>72 м² · стиль минимализм · г. Москва</p>
+          </div>
+        </div>
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Коттедж</span>
+            <h3>Кирпичный дом</h3>
+            <p>310 м² · 5 комнат · г. Химки</p>
+          </div>
+        </div>
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Жилой комплекс</span>
+            <h3>Многоквартирный дом</h3>
+            <p>120 квартир · современная архитектура · г. Москва</p>
+          </div>
+        </div>
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1513694203232-719a280e022f?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Интерьер</span>
+            <h3>Дизайн интерьера</h3>
+            <p>120 м² · стиль современная классика · г. Москва</p>
+          </div>
+        </div>
+        <div class="portfolio__card" data-reveal>
+          <div class="portfolio__img" style="background-image:url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop')"></div>
+          <div class="portfolio__overlay">
+            <span class="portfolio__tag">Ремонт</span>
+            <h3>Трёхкомнатная квартира</h3>
+            <p>95 м² · скандинавский стиль · г. Москва</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Наши цены</span>
+        <h2 class="section-title">ПРОЗРАЧНЫЕ <span class="accent">ЦЕНЫ</span></h2>
+        <p class="section-desc">Фиксированная стоимость без скрытых платежей</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing__card" data-reveal>
+          <div class="pricing__header">
+            <h3>Ремонт квартир</h3>
+            <div class="pricing__price">от 5 000 <span>₽/м²</span></div>
+          </div>
+          <ul class="pricing__list">
+            <li>Косметический ремонт</li>
+            <li>Капитальный ремонт</li>
+            <li>Дизайнерский ремонт</li>
+            <li>Черновая и чистовая отделка</li>
+            <li>Замена инженерных сетей</li>
+            <li>Гарантия 2 года</li>
+          </ul>
+          <a href="#contact" class="btn btn--primary btn--full">Рассчитать стоимость</a>
+        </div>
+        <div class="pricing__card pricing__card--featured" data-reveal>
+          <div class="pricing__badge">Популярно</div>
+          <div class="pricing__header">
+            <h3>Дом под ключ</h3>
+            <div class="pricing__price">от 3 000 000 <span>₽</span></div>
+          </div>
+          <ul class="pricing__list">
+            <li>Проект дома</li>
+            <li>Фундамент и коробка</li>
+            <li>Кровля и утепление</li>
+            <li>Инженерные сети</li>
+            <li>Чистовая отделка</li>
+            <li>Гарантия 5 лет</li>
+          </ul>
+          <a href="#contact" class="btn btn--primary btn--full">Заказать дом</a>
+        </div>
+        <div class="pricing__card" data-reveal>
+          <div class="pricing__header">
+            <h3>Дизайн-проект</h3>
+            <div class="pricing__price">от 150 000 <span>₽</span></div>
+          </div>
+          <ul class="pricing__list">
+            <li>Планировочное решение</li>
+            <li>3D-визуализация</li>
+            <li>Чертежи и узлы</li>
+            <li>Спецификация материалов</li>
+            <li>Авторский надзор</li>
+            <li>Гарантия на проект</li>
+          </ul>
+          <a href="#contact" class="btn btn--primary btn--full">Заказать проект</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="reviews" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Отзывы клиентов</span>
+        <h2 class="section-title">ЧТО ГОВОРЯТ <span class="accent">КЛИЕНТЫ</span></h2>
+      </div>
+      <div class="reviews__grid">
+        <div class="review" data-reveal>
+          <div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review__text">«Построили дом за 4 месяца, как и обещали. Все строго по проекту, никаких сюрпризов в смете. Рекомендую эту компанию всем знакомым!»</p>
+          <div class="review__author">
+            <div class="review__avatar" style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Алексей" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div>
+              <div class="review__name">Алексей Смирнов</div>
+              <div class="review__project">Коттедж 240 м², Москва</div>
+            </div>
+          </div>
+        </div>
+        <div class="review" data-reveal>
+          <div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review__text">«Сделали ремонт трёхкомнатной квартиры. Отдельно хочу отметить качество отделки — всё идеально. Живём уже полгода, всё как новое.»</p>
+          <div class="review__author">
+            <div class="review__avatar" style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face" alt="Мария" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div>
+              <div class="review__name">Мария Козлова</div>
+              <div class="review__project">Квартира 95 м², Москва</div>
+            </div>
+          </div>
+        </div>
+        <div class="review" data-reveal>
+          <div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="review__text">«Заказывали дизайн-проект и реализацию. Ребята вникли в наши пожелания, предложили отличные решения. Дизайн получился именно таким, как мы мечтали.»</p>
+          <div class="review__author">
+            <div class="review__avatar" style="overflow:hidden;"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Дмитрий" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"></div>
+            <div>
+              <div class="review__name">Дмитрий Волков</div>
+              <div class="review__project">Студия 48 м², Москва</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Вопросы и ответы</span>
+        <h2 class="section-title">ЧАСТЫЕ <span class="accent">ВОПРОСЫ</span></h2>
+      </div>
+      <div class="faq__list">
+        <div class="faq__item" data-reveal>
+          <button class="faq__question">
+            <span>Какие гарантии вы предоставляете?</span>
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Мы предоставляем гарантию на все виды работ: 2 года на ремонт квартир, 5 лет на строительство домов и 3 года на инженерные сети. В течение гарантийного срока устраняем любые дефекты за наш счёт.</p>
+          </div>
+        </div>
+        <div class="faq__item" data-reveal>
+          <button class="faq__question">
+            <span>Сколько времени занимает строительство дома?</span>
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Средний срок строительства коттеджа площадью 150–250 м² — от 3 до 5 месяцев. Точный срок зависит от сложности проекта, сезона и состояния участка. Мы фиксируем сроки в договоре.</p>
+          </div>
+        </div>
+        <div class="faq__item" data-reveal>
+          <button class="faq__question">
+            <span>Можно ли контролировать ход строительства?</span>
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Да, мы предоставляем еженедельные фотоотчёты и отчёты о ходе работ. Вы также можете посещать объект в любое удобное время и задавать вопросы прорабу.</p>
+          </div>
+        </div>
+        <div class="faq__item" data-reveal>
+          <button class="faq__question">
+            <span>Работаете ли вы с ипотекой?</span>
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Да, мы работаем с различными программами ипотечного кредитования. Поможем подобрать банк и оформить все необходимые документы для получения кредита.</p>
+          </div>
+        </div>
+        <div class="faq__item" data-reveal>
+          <button class="faq__question">
+            <span>Как формируется стоимость работ?</span>
+            <span class="faq__icon">+</span>
+          </button>
+          <div class="faq__answer">
+            <p>Стоимость рассчитывается на основе замеров и проекта. Мы составляем детальную смету с фиксированной ценой. Вы оплачиваете работу поэтапно по факту выполнения каждого этапа.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Свяжитесь с нами</span>
+        <h2 class="section-title">ОСТАВИТЬ <span class="accent">ЗАЯВКУ</span></h2>
+        <p class="section-desc">Бесплатная консультация и расчёт стоимости за 24 часа</p>
+      </div>
+      <form action="https://formsubmit.co/YOUR_EMAIL@email.com" method="POST" class="contact__form" id="contactForm">
+        <input type="hidden" name="_subject" value="Новая заявка — ЛейдингСтрой">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://example.com/landing-construction/">
+        <div class="form__row">
+          <div class="form__group">
+            <label for="name">Ваше имя</label>
+            <input type="text" id="name" name="name" placeholder="Как вас зовут?" required>
+          </div>
+          <div class="form__group">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
+        </div>
+        <div class="form__group">
+          <label for="service">Тип услуги</label>
+          <select id="service" name="service">
+            <option value="">Выберите услугу</option>
+            <option value="repair">Ремонт квартир</option>
+            <option value="house">Строительство дома</option>
+            <option value="design">Дизайн-проект</option>
+            <option value="engineering">Инженерные сети</option>
+          </select>
+        </div>
+        <div class="form__group">
+          <label for="message">Опишите ваш проект</label>
+          <textarea id="message" name="message" rows="4" placeholder="Площадь, этажность, пожелания..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Отправить заявку</button>
+        <p class="form__note">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__about">
+          <a href="#" class="nav__logo">
+            <span class="nav__logo-icon">&#9632;</span>
+            ЛЕЙДИНГ<span class="accent">СТРОЙ</span>
+          </a>
+          <p>Строительная компания полного цикла. Строим, ремонтируем, проектируем с 2010 года.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Услуги</h4>
+          <ul>
+            <li><a href="#services">Ремонт квартир</a></li>
+            <li><a href="#services">Строительство домов</a></li>
+            <li><a href="#services">Дизайн-проект</a></li>
+            <li><a href="#services">Инженерные сети</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Компания</h4>
+          <ul>
+            <li><a href="#portfolio">Портфолио</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Контакты</h4>
+          <ul>
+            <li>+7 (495) 123-45-67</li>
+            <li>info@leidingstroy.ru</li>
+            <li>г. Москва, ул. Строителей, 42</li>
+            <li>Пн-Пт: 9:00 – 18:00</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 ЛейдингСтрой. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
